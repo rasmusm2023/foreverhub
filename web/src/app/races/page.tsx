@@ -1,17 +1,15 @@
-const races = [
-  { name: "Human", faction: "Alliance" },
-  { name: "Orc", faction: "Horde" },
-  { name: "Dwarf", faction: "Alliance" },
-  { name: "Night Elf", faction: "Alliance" },
-  { name: "High Order Skyborne", faction: "Alliance" },
-  { name: "Undead", faction: "Horde" },
-  { name: "Tauren", faction: "Horde" },
-  { name: "Gnome", faction: "Alliance" },
-  { name: "Troll", faction: "Horde" },
-  { name: "Windshaper Skyborne", faction: "Horde" },
-];
+import { races } from "@/data/races";
+import { Metadata } from "next";
+import { RaceList } from "@/components/RaceList";
+
+export const metadata: Metadata = {
+  title: "Races",
+};
 
 export default function Races() {
+  const alliance = races.filter((race) => race.faction === "Alliance");
+  const horde = races.filter((race) => race.faction === "Horde");
+
   return (
     <main className="p-8">
       <h1 className="text-3xl font-semibold">Races</h1>
@@ -19,13 +17,8 @@ export default function Races() {
         This is a list of all the races in WoW Forever.
       </p>
 
-      <ul className="mt-6 list-disc pl-5">
-        {races.map((race) => (
-          <li key={race.name}>
-            {race.name} — {race.faction}
-          </li>
-        ))}
-      </ul>
+      <RaceList title="Alliance" races={alliance}></RaceList>
+      <RaceList title="Horde" races={horde}></RaceList>
     </main>
   );
 }
